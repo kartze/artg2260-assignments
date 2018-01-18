@@ -1,0 +1,62 @@
+body {
+}
+
+h1, h2, h3, h4, h5, h6, a {
+  font-family: "Comfortaa";
+  line-height: 1.5em;
+}
+
+p {
+  font-size: 1.5em;
+  font-family: "Open Sans";
+  line-height: 1.5em;
+}
+
+a, a:link, a:visited {
+  text-decoration: none;
+  color: yellowgreen;
+}
+
+a:active, a:hover {
+  text-decoration: none;
+}
+
+.container {
+  margin: auto;
+}
+
+.navbar a {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  color: black;
+  background-color: yellowgreen;
+}
+
+.assignment {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  border: 0.5px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.assignment a {
+  font-family: "Open Sans";
+  text-transform: lowercase;
+  padding: 10%;
+  font-size: 1.5em;
+}
+
+.assignment a:hover {
+  color: white;
+}
+
+.about {
+  display: flex;
+  justify-content: center;
+}
