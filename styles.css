@@ -1,9 +1,9 @@
 body {
+  padding: 20px;
 }
 
 h1, h2, h3, h4, h5, h6, a {
   font-family: "Comfortaa";
-  line-height: 1.5em;
 }
 
 p {
@@ -61,7 +61,7 @@ a:active, a:hover {
   color: white;
 }
 
-.about {
+#about {
   display: flex;
   justify-content: center;
 }
