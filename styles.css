@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6, a {
 
 p {
   font-size: 1.5em;
-  font-family: "Open Sans";
+  font-family: "Comfortaa";
   line-height: 1.5em;
 }
 
@@ -25,6 +25,11 @@ a:active, a:hover {
   margin: auto;
 }
 
+#name {
+  border: 0.5px solid yellowgreen;
+  padding: 5px;
+}
+
 .navbar a {
   display: flex;
   justify-content: center;
@@ -38,7 +43,7 @@ a:active, a:hover {
 
 .assignment {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   background-color: black;
   border: 0.5px;
   height: 150px;
@@ -46,9 +51,9 @@ a:active, a:hover {
 }
 
 .assignment a {
-  font-family: "Open Sans";
+  font-family: "Comfortaa";
   text-transform: lowercase;
-  padding: 10%;
+  padding: 25px;
   font-size: 1.5em;
 }
 
