@@ -1,42 +1,68 @@
+var c1, c2;
+
 function setup() {
 	var canvas = createCanvas(400, 400);
 	canvas.parent('sketch-box');
+	c1 = color(66, 134, 244);
+	c2 = color(255, 195, 160);
 }
 
 function draw() {
-  background(220);
-	fill(255);
-	// head
-	ellipse(150, 250, 80, 80);
-	// body
-	triangle(190, 260, 200, 140, 240, 160);
-	// leftside hand
-	ellipse(126, 323, 10, 10);
-	// rightside hand
-	ellipse(196, 344, 10, 10);
-	// leftside foot
-	ellipse(190, 70, 20, 10);
-	// rightside foot
-	ellipse(250, 90, 20, 10);
-	// rightside eye
-	ellipse(145, 240, 2, 2);
-	// leftside eye
-	ellipse(125, 265, 2, 2);
-	// mouth
-	ellipse(160, 265, 30, 30);
+	// sky background
+		setGradient(0, 0, 400, 250, c1, c2);
 
-	noFill();
-	// leftside arm
-	curve(110, 100, 190, 260, 130, 320, 10, 400);
-	// rightside arm
-	curve(110, 200, 190, 260, 200, 340, 10, 400);
-	// leftside leg
-	curve(110, 100, 180, 70, 200, 140, 180, 100);
-	// rightside leg
-	curve(200, 150, 240, 90, 240, 160, 180, 100);
+		// sun
+		fill(255, 250, 0);
+		noStroke();
+		ellipse(330, 100, 70, 70);
 
-	fill(0);
-	textSize(12);
-	textFont('Helvetica');
-	text('This is Nicholas.', 50, 150);
-}
+		// dune 1 background
+		fill(107, 100, 66);
+		noStroke();
+		ellipse(350, 350, 700, 300);
+
+		// dune 2 background
+		fill(153, 141, 102);
+		noStroke();
+		beginShape();
+			vertex(0, 200);
+			bezierVertex(160, 260, 35, 270, 900, 350);
+			vertex(500, 300);
+			vertex(400, 400);
+			vertex(0, 400);
+		endShape();
+
+		// cacti
+		fill(57, 96, 21);
+		noStroke();
+		beginShape();
+			vertex(100, 320);
+			bezierVertex(20, 0, 80, 75, 130, 350);
+		endShape();
+
+		// cacti arms
+		ellipse(100, 200, 50, 30);
+		ellipse(70, 200, 50, 30);
+
+		// sand foreground
+		fill(237, 227, 144);
+		noStroke();
+		beginShape();
+			vertex(0, 300);
+			bezierVertex(160, 260, 35, 270, 900, 350);
+			vertex(400, 300);
+			vertex(400, 400);
+			vertex(0, 400);
+		endShape();
+	}
+
+	// how to create linear gradient
+	// from https://p5js.org/examples/color-linear-gradient.html
+	function setGradient(x, y, w, h, c1, c2) {
+	    for (var i = y; i <= y+h; i++) { // move down the canvas
+	      var inter = map(i, y, y+h, 0, 1);
+	      var c = lerpColor(c1, c2, inter); // creates blended colour using lerpColor()
+	      stroke(c); // set color to current blended colour
+	      line(x, i, x+w, i); // draw a thin, horizontal line
+	  }
+	}
