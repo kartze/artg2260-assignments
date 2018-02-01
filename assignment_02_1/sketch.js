@@ -13,6 +13,9 @@ function draw() {
   if (mouseIsPressed == true) {
     line(mouseX, mouseY, pmouseX, pmouseY);
   }
+  if (key == 'x' || key == "X") {
+    saveCanvas("myMasterpiece", "jpg");
+  }
 }
 
 function keyPressed() {
@@ -24,8 +27,6 @@ function keyPressed() {
     stroke(0, 255, 0);
   } else if (key == 'd' || key == 'D') {
     stroke(0, 0, 255);
-  } else if (key == 'x') {
-    saveCanvas();
   } else if (keyCode == UP_ARROW) {
     weight++;
     strokeWeight(weight);
@@ -35,17 +36,18 @@ function keyPressed() {
   } else if (keyCode == BACKSPACE || keyCode == DELETE) {
     background(0);
   }
-  // else if (key == ' ') {
-  //  if (menuOpen == false) {
-  //    menuOpen = true;
-  //    openMenu();
-  //  } else if (menuOpen == true) {
-  //    menuOpen = false;
-  //    openMenu();
-  //  }
-  //}
+  /* else if (key == ' ') {
+    if (menuOpen == false) {
+      menuOpen = true;
+      openMenu();
+    } else if (menuOpen == true) {
+      menuOpen = false;
+      openMenu();
+    }
+  } */
 }
 
+/*
 function openMenu() {
   if (menuOpen == false) {
     noStroke();
@@ -70,3 +72,4 @@ function openMenu() {
     text('m - magenta', 120, 370);
   }
 }
+*/
