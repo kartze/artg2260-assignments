@@ -16,7 +16,7 @@ function preload() {
 }
 
 function setup() {
-  var canvas = createCanvas(500, 500); // create a canvas at least 400 x 400
+  var canvas = createCanvas(400, 400); // create a canvas at least 400 x 400
   canvas.parent('sketch-box');
   xPos = width / 2; // set xPos to be half of the width
   yPos = height / 2; // set yPos to be half of the height
