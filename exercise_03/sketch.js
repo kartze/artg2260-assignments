@@ -12,11 +12,12 @@ var imageHeight = 30; // declare a var for image height, assign 30
 // format: img = loadImage('assets/imageName.png');
 // you'll need to create a folder called assets, and include the png there
 function preload() {
-  img = loadImage('chibird.gif');
+  img = loadImage('mario.png');
 }
 
 function setup() {
   createCanvas(500, 500); // create a canvas at least 400 x 400
+  canvas.parent('sketch-box');
   xPos = width / 2; // set xPos to be half of the width
   yPos = height / 2; // set yPos to be half of the height
 
