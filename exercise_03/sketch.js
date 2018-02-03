@@ -5,8 +5,8 @@ var yPos;
 var xSpeed; // declare a var called xSpeed;
 var ySpeed; // declare a var called ySpeed
 var img; // declare a variable called img
-var imageWidth = 40; // declare a var for image width, assign 40
-var imageHeight = 30; // declare a var for image height, assign 30
+var imageWidth = 100; // declare a var for image width, assign 40
+var imageHeight = 100; // declare a var for image height, assign 30
 
 // use the preload()function to load an image,
 // format: img = loadImage('assets/imageName.png');
