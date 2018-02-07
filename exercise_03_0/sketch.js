@@ -49,7 +49,7 @@ function draw() {
 
   // draw the image at the (xPos, yPos) coordinate,
   // using the template image(img, xPos, yPos, width, height)
-  tint(255, 128); // apply 50% transparency
+  tint(255, 191); // apply 75% transparency
   image(img1, xPos1, yPos1, imageWidth, imageHeight);
 
   xPos1 += xSpeed1; // add the xSpeed to xPos
@@ -67,7 +67,7 @@ function draw() {
 
   // draw the image at the (xPos, yPos) coordinate,
   // using the template image(img, xPos, yPos, width, height)
-  tint(255, 128); // apply 50% transparency
+  tint(255, 191); // apply 75% transparency
   image(img2, xPos2, yPos2, imageWidth, imageHeight);
 
   xPos2 += xSpeed2; // add the xSpeed to xPos
