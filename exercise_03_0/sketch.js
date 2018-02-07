@@ -35,13 +35,13 @@ function setup() {
 
   // assign xSpeed and ySpeed
   // with random values between 1 and 10
-  xSpeed1 = random(1, 10);
-  ySpeed1 = random(1, 10);
+  xSpeed1 = random(11, 20);
+  ySpeed1 = random(11, 20);
 
   // assign xSpeed and ySpeed
   // with random values between 1 and 10
-  xSpeed2 = random(1, 10);
-  ySpeed2 = random(1, 10);
+  xSpeed2 = random(11, 20);
+  ySpeed2 = random(11, 20);
 }
 
 function draw() {
