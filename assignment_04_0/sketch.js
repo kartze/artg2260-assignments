@@ -2,8 +2,8 @@ let numCars = 10;
 let xPos = [];
 let yPos = [];
 let xSpeed = [];
-let minSpeed = 3;
-let maxSpeed = 1;
+let minSpeed = 1;
+let maxSpeed = 3;
 let cars = [];
 let carWidth = 50;
 
@@ -49,6 +49,8 @@ function mouseClicked() {
     if (gameState == 0) {
       gameState = 1; // start to game
     } else if (gameState == 2 || gameState == 3 || gameState == 4) {
+      //	minSpeed = 1; // reset speed
+      maxSpeed = 3; // reset speed
       gameState = 0; // game over to restart
     }
   } else {
