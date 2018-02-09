@@ -23,6 +23,9 @@ function setup() {
 
   startXPos = width / 2;
   startYPos = height - gamePieceHeight / 2;
+
+  // add listener to disable scroll
+  window.addEventListener('scroll', noscroll);
 }
 
 function draw() {
@@ -37,6 +40,10 @@ function draw() {
   } else if (gameState == 4) {
     win();
   }
+}
+
+function noscroll() {
+  window.scrollTo(0, 0);
 }
 
 function startScreen() {
@@ -103,7 +110,7 @@ function win() {
   background(255);
   fill(0);
   text("You Win!", 100, 225);
-  text("Play Again?", 100, 245);
+  text("Good Job", 100, 245);
 }
 
 function mouseClicked() {
