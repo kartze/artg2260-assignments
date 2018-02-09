@@ -1,13 +1,15 @@
-let num = 5;
-let xPos = [];
+let num = 10;
+let xPos;
 let yPos = [];
 let xSpeed = [];
+let spots = [];
+
 let img;
-let imgWidth = 30;
-let imgHeight = 30;
+let imgWidth = 50;
+let imgHeight = 50;
 
 let gameState = 0;
-let score = 0;
+let time = 1000;
 
 function preload() {
   img = loadImage('mario.png');
@@ -16,13 +18,15 @@ function preload() {
 function setup() {
   var canvas = createCanvas(500, 500);
   canvas.parent('sketch-box');
-  for (var i = 0; i < num; i++) {
-    xPos[i] = width / 2;
-    yPos[i] = 10 + 60 * i;
-    xSpeed[i] = random(1, 10);
+  xPos = width / 2;
+  for (let i = 0; i < num; i++) {
+    yPos[i] = 25 + 50 * i;
+    if (i % 2 == 0) {
+      xSpeed[i] = random(1, 10);
+    } else {
+      xSpeed[i] = random(-10, -1);
+    }
   }
-
-  framerate = 20;
 }
 
 function draw() {
@@ -31,17 +35,18 @@ function draw() {
   } else if (gameState == 1) {
     update();
   } else if (gameState == 2) {
-    gameOver();
+    gameOver(1);
+  } else if (gameState == 3) {
+    gameOver(2);
   }
 }
 
 function startScreen() {
   background(255);
-  text("Click to Begin", 100, 300);
-  spots = [];
-  for (let i = 0; i < num; i++) { // Make a for() loop to create the desired number of Spots
-    // Add an index [i] to create multiple Spots
-    spots[i] = new Spot(xPos[i], yPos[i], xSpeed[i]);
+  text("FROGGER", 100, 225);
+  text("Click to Begin", 100, 245);
+  for (let i = 0; i < num; i++) {
+    spots[i] = new Spot(xPos, yPos[i], xSpeed[i]);
   }
 }
 
@@ -52,21 +57,32 @@ function update() {
     spots[i].display(); // Display each object
     spots[i].check(); // Check for mouse overlap
   }
-  score++;
+
+  checkTime();
+  time--;
+
+  fill(0);
   text("Playing", 10, 30);
-  text("Score: " + score, 10, 90);
+  text("Time: " + time, 10, 90);
 }
 
-function gameOver() {
+function gameOver(type) {
   background(255);
-  text("Game Over", 10, 30);
-  text("Score: " + score, 10, 90);
+  fill(0);
+  if (type == 1) {
+    text("Frogger Got Hit!", 100, 225);
+  } else if (type == 2) {
+    text("Times Up!", 100, 225);
+  }
+  text("Game Over", 100, 245);
 }
 
 function mouseClicked() {
   if (gameState == 0) {
     gameState = 1;
   } else if (gameState == 2) {
+    gameState = 0;
+  } else if (gameState == 3) {
     gameState = 0;
   }
 }
@@ -76,27 +92,34 @@ class Spot {
     this.x = _x;
     this.y = _y;
     this.speed = _speed;
+    this.img = img;
+    this.width = 50;
+    this.height = 50;
   }
 
   move() {
-    //    this.y += this.speed;
-    //    if ((this.y > (height - this.diameter / 2)) || (this.y < this.diameter / 2)) {
-    //      this.speed *= -1;
-    //    }
-    this.x += this.Speed;
-
-    if (this.x + imgWidth >= width || this.x <= 0) {
-      this.speed *= -1;
+    this.x += this.speed;
+    if (this.x - this.width >= width || this.x + this.width <= 0) {
+      if (this.speed > 0) {
+        this.x = 0;
+      } else {
+        this.x = width;
+      }
     }
   }
 
   display() {
-    image(img, this.x, this.y, imgWidth, imgHeight);
+    fill(255);
+    image(img, this.x, this.y, this.width, this.height);
   }
 
   check() {
-    if (abs(this.x - mouseX) < imgWidth && abs(this.y - mouseY < imgHeight)) {
+    if (abs(this.x - mouseX) < this.width && abs(this.y - mouseY) < this.height) {
       gameState = 2;
     }
   }
+}
+
+function checkTime() {
+  if (time <= 0) gameState = 3;
 }
