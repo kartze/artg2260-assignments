@@ -91,7 +91,7 @@ function createCars() {
 }
 
 function update() {
-  background(255);
+  background(255, 280 - level * 25, 280 - level * 25);
   fill(0);
   text("Level: " + level, 525, 20);
   text("Time: " + time, 25, 20);
@@ -216,7 +216,7 @@ function checkTime() {
 }
 
 function gameOver(type) {
-  background(255);
+  background(255, 280 - level * 25, 280 - level * 25);
   fill(0);
   if (type == 1) {
     text("You're Dead!", 100, 225);
