@@ -2,9 +2,12 @@ let numCars = 10;
 let xPos = [];
 let yPos = [];
 let xSpeed = [];
-let maxSpeed = 7;
+let minSpeed = 3;
+let maxSpeed = 1;
 let cars = [];
 let carWidth = 50;
+
+let levelSpeedIncrease = 2; // how much speed increases each level
 
 let player1;
 let playerWidth = 50;
@@ -16,6 +19,7 @@ let gamePieceHeight = 50; // same height for player and car gamepieces to mainta
 
 let gameState = 0;
 let time;
+let level;
 
 function setup() {
   var canvas = createCanvas(600, 600);
@@ -34,8 +38,6 @@ function draw() {
     gameOver(1);
   } else if (gameState == 3) { // when time is up
     gameOver(2);
-  } else if (gameState == 4) {
-    win();
   }
 }
 
@@ -64,27 +66,38 @@ function startScreen() {
   text("CROSS THE ROAD", 100, 225);
   text("Click to Begin", 100, 245);
 
+  player1 = new Player(startXPos, startYPos);
+  createCars();
+
+  time = 1000; // initializes countdown
+  level = 1;
+}
+
+function createCars() {
   for (let i = 0; i < numCars; i++) {
     // initializes properties of each car
     xPos[i] = random(0, width);
     yPos[i] = gamePieceHeight * (1.5 + i);
     if (i % 2 == 0) { // alternates car direction
-      xSpeed[i] = random(1, maxSpeed);
+      xSpeed[i] = random(minSpeed, maxSpeed);
     } else {
-      xSpeed[i] = random(-maxSpeed, -1);
+      xSpeed[i] = random(-maxSpeed, -minSpeed);
     }
-
     // creates each car
     cars[i] = new Car(xPos[i], yPos[i], xSpeed[i]);
   }
-
-  player1 = new Player(startXPos, startYPos);
-
-  time = 1000; // initializes countdown
 }
 
 function update() {
   background(255);
+  fill(0);
+  text("Level: " + level, 525, 20);
+  text("Time: " + time, 25, 20);
+  text("Lives: " + player1.lives, 25, 35);
+
+  player1.display();
+  player1.checkDead();
+  player1.checkWin();
 
   for (let i = 0; i < numCars; i++) {
     cars[i].move();
@@ -92,16 +105,8 @@ function update() {
     cars[i].checkHit();
   }
 
-  player1.display();
-  player1.checkDead();
-  player1.checkWin();
-
   checkTime();
   time--;
-
-  fill(0);
-  text("Time: " + time, 25, 20);
-  text("Lives: " + player1.lives, 25, 35);
 }
 
 class Player {
@@ -113,21 +118,21 @@ class Player {
     this.lives = lives;
   }
 
-  move(direction) {
-    if (direction == 1 && this.x < (width - this.width / 2)) {
-      this.x += this.width;
-    } else if (direction == 2 && this.x > this.width / 2) {
-      this.x -= this.width;
-    } else if (direction == 3 && this.y > this.height / 2) {
-      this.y -= this.height;
-    } else if (direction == 4 && this.y < (height - this.height / 2)) {
-      this.y += this.height;
-    }
-  }
-
   display() {
     fill(0);
     ellipse(this.x, this.y, this.width, this.height);
+  }
+
+  move(direction) {
+    if (direction == 1 && this.x < (width - this.width / 2)) { // move right but if you're not already at the right wall
+      this.x += this.width;
+    } else if (direction == 2 && this.x > this.width / 2) { // move left but if you're not already at the left wall
+      this.x -= this.width;
+    } else if (direction == 3 && this.y > this.height / 2) { // move up but if you're not already at the top wall
+      this.y -= this.height;
+    } else if (direction == 4 && this.y < (height - this.height / 2)) { // move down but if you're not already at the bottom wall
+      this.y += this.height;
+    }
   }
 
   loseLife() {
@@ -140,12 +145,23 @@ class Player {
   }
 
   checkWin() {
-    if (this.y == gamePieceHeight / 2) gameState = 4; // player reaches top wall so win
+    if (this.y == gamePieceHeight / 2) levelUp(); // player reaches top wall so next level
   }
 
   checkDead() {
     if (this.lives == 0) gameState = 2; // player is dead so game over
   }
+}
+
+function levelUp() {
+  time = 1000; // re-initializes countdown
+  level++;
+  player1.lives = 3;
+  player1.reset();
+  //	minSpeed+= levelSpeedIncrease; // increase speed next level
+  maxSpeed += levelSpeedIncrease; // increase speed next level
+  createCars();
+  gameState = 1;
 }
 
 function keyPressed() {
@@ -169,6 +185,11 @@ class Car {
     this.height = gamePieceHeight;
   }
 
+  display() {
+    fill(255);
+    ellipse(this.x, this.y, this.width, this.height);
+  }
+
   move() {
     this.x += this.speed;
     if (this.x - this.width >= width || this.x + this.width <= 0) { // if car reaches wall
@@ -178,11 +199,6 @@ class Car {
         this.x = width;
       }
     }
-  }
-
-  display() {
-    fill(255);
-    ellipse(this.x, this.y, this.width, this.height);
   }
 
   checkHit() {
@@ -206,11 +222,5 @@ function gameOver(type) {
     text("Times Up!", 100, 225);
   }
   text("Game Over", 100, 245);
-}
-
-function win() {
-  background(255);
-  fill(0);
-  text("You Win!", 100, 225);
-  text("Good Job", 100, 245);
+  text("Level: " + level, 100, 265);
 }
