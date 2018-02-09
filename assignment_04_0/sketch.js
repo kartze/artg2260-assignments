@@ -10,6 +10,7 @@ let player1;
 let playerWidth = 50;
 let startXPos;
 let startYPos;
+let lives = 3;
 
 let gamePieceHeight = 50; // same height for player and car gamepieces to maintain horizontal lines
 
@@ -29,7 +30,7 @@ function draw() {
     startScreen();
   } else if (gameState == 1) {
     update();
-  } else if (gameState == 2) { // when player is hit
+  } else if (gameState == 2) { // when player is dead
     gameOver(1);
   } else if (gameState == 3) { // when time is up
     gameOver(2);
@@ -40,7 +41,7 @@ function draw() {
 
 function startScreen() {
   background(255);
-  text("FROGGER", 100, 225);
+  text("CROSS THE ROAD", 100, 225);
   text("Click to Begin", 100, 245);
 
   for (let i = 0; i < numCars; i++) {
@@ -72,13 +73,15 @@ function update() {
   }
 
   player1.display();
+  player1.checkDead();
   player1.checkWin();
 
   checkTime();
   time--;
 
   fill(0);
-  text("Time: " + time, 25, 30);
+  text("Time: " + time, 25, 20);
+  text("Lives: " + player1.lives, 25, 35);
 }
 
 function checkTime() {
@@ -89,7 +92,7 @@ function gameOver(type) {
   background(255);
   fill(0);
   if (type == 1) {
-    text("Frogger Got Hit!", 100, 225);
+    text("You're Dead!", 100, 225);
   } else if (type == 2) {
     text("Times Up!", 100, 225);
   }
@@ -138,7 +141,8 @@ class Car {
 
   checkHit() {
     if (abs(player1.x - this.x) <= this.width / 2 + player1.width / 2 && this.y == player1.y) {
-      gameState = 2; // player touches car so game over
+      player1.loseLife(); // player touches car so loses a life
+      player1.reset();
     }
   }
 }
@@ -149,6 +153,7 @@ class Player {
     this.y = _y;
     this.width = playerWidth;
     this.height = gamePieceHeight;
+    this.lives = lives;
   }
 
   move(direction) {
@@ -168,8 +173,21 @@ class Player {
     ellipse(this.x, this.y, this.width, this.height);
   }
 
+  loseLife() {
+    this.lives--;
+  }
+
+  reset() {
+    this.x = startXPos;
+    this.y = startYPos;
+  }
+
   checkWin() {
     if (this.y == gamePieceHeight / 2) gameState = 4; // player reaches top wall so win
+  }
+
+  checkDead() {
+    if (this.lives == 0) gameState = 2; // player is dead so game over
   }
 }
 
