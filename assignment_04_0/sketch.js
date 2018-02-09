@@ -23,9 +23,6 @@ function setup() {
 
   startXPos = width / 2;
   startYPos = height - gamePieceHeight / 2;
-
-  // add listener to disable scroll
-  window.addEventListener('scroll', noscroll);
 }
 
 function draw() {
@@ -42,8 +39,24 @@ function draw() {
   }
 }
 
+function mouseClicked() {
+  if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) { // if player clicks inside game canvas
+    // add listener to disable scroll
+    window.addEventListener('scroll', noscroll);
+
+    if (gameState == 0) {
+      gameState = 1; // start to game
+    } else if (gameState == 2 || gameState == 3 || gameState == 4) {
+      gameState = 0; // game over to restart
+    }
+  } else {
+    // Remove listener to disable scroll
+    window.removeEventListener('scroll', noscroll);
+  }
+}
+
 function noscroll() {
-  window.scrollTo(0, 0);
+  canvas.scrollIntoView();
 }
 
 function startScreen() {
@@ -89,69 +102,6 @@ function update() {
   fill(0);
   text("Time: " + time, 25, 20);
   text("Lives: " + player1.lives, 25, 35);
-}
-
-function checkTime() {
-  if (time <= 0) gameState = 3; // time is up so game over
-}
-
-function gameOver(type) {
-  background(255);
-  fill(0);
-  if (type == 1) {
-    text("You're Dead!", 100, 225);
-  } else if (type == 2) {
-    text("Times Up!", 100, 225);
-  }
-  text("Game Over", 100, 245);
-}
-
-function win() {
-  background(255);
-  fill(0);
-  text("You Win!", 100, 225);
-  text("Good Job", 100, 245);
-}
-
-function mouseClicked() {
-  if (gameState == 0) {
-    gameState = 1; // start to game
-  } else if (gameState == 2 || gameState == 3 || gameState == 4) {
-    gameState = 0; // game over to restart
-  }
-}
-
-class Car {
-  constructor(_x, _y, _speed) {
-    this.x = _x;
-    this.y = _y;
-    this.speed = _speed;
-    this.width = carWidth;
-    this.height = gamePieceHeight;
-  }
-
-  move() {
-    this.x += this.speed;
-    if (this.x - this.width >= width || this.x + this.width <= 0) { // if car reaches wall
-      if (this.speed > 0) { // right-direction car reaches right wall, restart at left wall
-        this.x = 0;
-      } else { // left-direction car reaches left wall, restart at right wall
-        this.x = width;
-      }
-    }
-  }
-
-  display() {
-    fill(255);
-    ellipse(this.x, this.y, this.width, this.height);
-  }
-
-  checkHit() {
-    if (abs(player1.x - this.x) <= this.width / 2 + player1.width / 2 && this.y == player1.y) {
-      player1.loseLife(); // player touches car so loses a life
-      player1.reset();
-    }
-  }
 }
 
 class Player {
@@ -208,4 +158,59 @@ function keyPressed() {
   } else if (keyCode == DOWN_ARROW) {
     player1.move(4);
   }
+}
+
+class Car {
+  constructor(_x, _y, _speed) {
+    this.x = _x;
+    this.y = _y;
+    this.speed = _speed;
+    this.width = carWidth;
+    this.height = gamePieceHeight;
+  }
+
+  move() {
+    this.x += this.speed;
+    if (this.x - this.width >= width || this.x + this.width <= 0) { // if car reaches wall
+      if (this.speed > 0) { // right-direction car reaches right wall, restart at left wall
+        this.x = 0;
+      } else { // left-direction car reaches left wall, restart at right wall
+        this.x = width;
+      }
+    }
+  }
+
+  display() {
+    fill(255);
+    ellipse(this.x, this.y, this.width, this.height);
+  }
+
+  checkHit() {
+    if (abs(player1.x - this.x) <= this.width / 2 + player1.width / 2 && this.y == player1.y) {
+      player1.loseLife(); // player touches car so loses a life
+      player1.reset();
+    }
+  }
+}
+
+function checkTime() {
+  if (time <= 0) gameState = 3; // time is up so game over
+}
+
+function gameOver(type) {
+  background(255);
+  fill(0);
+  if (type == 1) {
+    text("You're Dead!", 100, 225);
+  } else if (type == 2) {
+    text("Times Up!", 100, 225);
+  }
+  text("Game Over", 100, 245);
+}
+
+function win() {
+  background(255);
+  fill(0);
+  text("You Win!", 100, 225);
+  text("Good Job", 100, 245);
 }
