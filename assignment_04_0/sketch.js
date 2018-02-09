@@ -65,6 +65,10 @@ function noscroll() {
 
 function startScreen() {
   background(255);
+  line(0, 0, width, 0);
+  line(0, 0, 0, height);
+  line(width - 1, height, width - 1, 0);
+  line(width, height - 1, 0, height - 1);
   text("CROSS THE ROAD", 100, 225);
   text("Click to Begin", 100, 245);
 
@@ -93,6 +97,10 @@ function createCars() {
 function update() {
   background(255, 280 - level * 25, 280 - level * 25);
   fill(0);
+  line(0, 0, width, 0);
+  line(0, 0, 0, height);
+  line(width - 1, height, width - 1, 0);
+  line(width, height - 1, 0, height - 1);
   text("Level: " + level, 525, 20);
   text("Time: " + time, 25, 20);
   text("Lives: " + player1.lives, 25, 35);
@@ -217,6 +225,10 @@ function checkTime() {
 
 function gameOver(type) {
   background(255, 280 - level * 25, 280 - level * 25);
+  line(0, 0, width, 0);
+  line(0, 0, 0, height);
+  line(width - 1, height, width - 1, 0);
+  line(width, height - 1, 0, height - 1);
   fill(0);
   if (type == 1) {
     text("You're Dead!", 100, 225);
