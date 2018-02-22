@@ -35,8 +35,7 @@ function keyPressed() {
     strokeWeight(weight);
   } else if (keyCode == BACKSPACE || keyCode == DELETE) {
     background(0);
-  }
-  /* else if (key == ' ') {
+  } else if (key == ' ') {
     if (menuOpen == false) {
       menuOpen = true;
       openMenu();
@@ -44,32 +43,38 @@ function keyPressed() {
       menuOpen = false;
       openMenu();
     }
-  } */
+  }
 }
 
-/*
 function openMenu() {
   if (menuOpen == false) {
     noStroke();
     fill("black");
-    rect(50, 350, 301, 50);
+    rect(50, 330, 301, 70);
     fill("white")
       .strokeWeight(0)
       .textSize(12);
-    text('see keys - SPACEBAR', 270, 390);
+    text('see key controls - SPACEBAR', 230, 390);
   }
   if (menuOpen == true) {
     noStroke();
     fill("black");
-    rect(50, 350, 400, 50);
+    rect(50, 330, 400, 70);
     fill("white");
-    rect(50, 350, 300, 50);
+    rect(50, 330, 300, 70);
     fill("black")
       .strokeWeight(0)
       .textSize(12);
-    text('b - blue', 60, 370);
-    text('c - green', 60, 390);
-    text('m - magenta', 120, 370);
+    text('w - white', 70, 350);
+    text('↑ - thicker brush', 70, 370);
+    text('↓ - thinner brush', 210, 370);
+    text('⌫ / DELETE - reset', 70, 390);
+    text('x - save as jpg', 210, 390);
+    fill("red");
+    text('a - red', 140, 350);
+    fill("orange");
+    text('s - yellow', 210, 350);
+    fill("blue");
+    text('d - blue', 280, 350);
   }
 }
-*/
