@@ -32,9 +32,12 @@ let gamePieceHeight = 50; // same height for player and car gamepieces to mainta
 let gameState = 0;
 let time;
 
+var pg1;
+
 function setup() {
-  var canvas = createCanvas(1200, 600);
+  var canvas = createCanvas(1100, 600);
   canvas.parent('sketch-box');
+  pg1 = createGraphics(1100, 1200);
 
   startXPos1 = width / 4;
   startYPos1 = height - gamePieceHeight / 2;
@@ -81,8 +84,11 @@ function startScreen() {
   line(0, 0, 0, height);
   line(width - 1, height, width - 1, 0);
   line(width, height - 1, 0, height - 1);
-  text("CROSS THE ROAD", 100, 225);
-  text("Click to Begin", 100, 245);
+  textSize(30);
+  textAlign(CENTER);
+  text("CROSS THE ROAD", width / 2, 225);
+  textSize(25);
+  text("click to begin", width / 2, 275);
 
   player1 = new Player1(startXPos1, startYPos1);
   createCars1();
@@ -126,25 +132,8 @@ function createCars2() {
 }
 
 function update() {
-  fill(255, 280 - level1 * 25, 280 - level1 * 25);
-  rect(0, 0, width / 2, height);
-  fill(255, 280 - level2 * 25, 280 - level2 * 25);
-  rect(width / 2, 0, width / 2, height);
-  fill(0);
-  line(0, 0, width, 0);
-  line(0, 0, 0, height);
-  line(width / 2, 0, width / 2, height);
-  line(width - 1, height, width - 1, 0);
-  line(width, height - 1, 0, height - 1);
-  textSize(12);
-  textAlign(LEFT);
-  fill(0, 0, 0);
-  text("Level: " + level1, 35, 575);
-  text("Level: " + level2, 35 + width / 2, 575);
-  textSize(200);
-  textAlign(CENTER);
-  fill(0, 0, 0, 51);
-  text(time, width / 2, height / 2);
+  background(255, 280 - level2 * 25, 280 - level2 * 25);
+  pg1.background(255, 280 - level1 * 25, 280 - level1 * 25);
 
   player1.display();
   player1.checkWin();
@@ -163,6 +152,26 @@ function update() {
 
   checkTime();
   time--;
+
+  scale(0.5, 0.5);
+  image(pg1, 0, 0);
+
+  scale(2, 2);
+  fill(0);
+  line(0, 0, width, 0);
+  line(0, 0, 0, height);
+  line(width / 2, 0, width / 2, height);
+  line(width - 1, height, width - 1, 0);
+  line(width, height - 1, 0, height - 1);
+  textSize(12);
+  textAlign(LEFT);
+  fill(0, 0, 0);
+  text("Level: " + level1, 35, 575);
+  text("Level: " + level2, 35 + width / 2, 575);
+  textSize(200);
+  textAlign(CENTER);
+  fill(0, 0, 0, 51);
+  text(time, width / 2, height / 2);
 }
 
 class Player1 {
@@ -174,8 +183,8 @@ class Player1 {
   }
 
   display() {
-    fill(0);
-    ellipse(this.x, this.y, this.width, this.height);
+    pg1.fill(0);
+    pg1.ellipse(this.x, this.y, this.width, this.height);
   }
 
   move(direction) {
@@ -281,8 +290,8 @@ class Car1 {
   }
 
   display() {
-    fill(255);
-    ellipse(this.x, this.y, this.width, this.height);
+    pg1.fill(255);
+    pg1.ellipse(this.x, this.y, this.width, this.height);
   }
 
   move() {
@@ -340,32 +349,58 @@ function checkTime() {
 }
 
 function gameOver() {
-  fill(255, 280 - level1 * 25, 280 - level1 * 25);
-  rect(0, 0, width / 2, height);
-  fill(255, 280 - level2 * 25, 280 - level2 * 25);
-  rect(width / 2, 0, width / 2, height);
-  line(0, 0, width, 0);
-  line(0, 0, 0, height);
-  line(width - 1, height, width - 1, 0);
-  line(width, height - 1, 0, height - 1);
-  fill(0);
-  textSize(12);
-  textAlign(LEFT);
-  fill(0, 0, 0);
   if (level1 > level2) {
-    line(width / 2, 0, width / 2, height);
-    text("You Won!", 100, 225);
-    text("Level: " + level1, 100, 245);
-    text("You Lose", 100 + width / 2, 225);
-    text("Level: " + level2, 100 + width / 2, 245);
+    fill(255, 280 - level1 * 25, 280 - level1 * 25);
+    rect(0, 0, width / 2, height);
+    fill(255, 280 - level2 * 25, 280 - level2 * 25);
+    rect(width / 2, 0, width / 2, height);
+    fill(0);
+    line(0, 0, width, 0);
+    line(0, 0, 0, height);
+    line(width - 1, height, width - 1, 0);
+    line(width, height - 1, 0, height - 1);
+
+    fill(0);
+    textAlign(CENTER);
+    textSize(30);
+    text("You Won!", width / 4, 225);
+    text("You Lose", 3 * width / 4, 225);
+    textSize(25);
+    text("Level: " + level1, width / 4, 275);
+    text("Level: " + level2, 3 * width / 4, 275);
   } else if (level1 < level2) {
-    line(width / 2, 0, width / 2, height);
-    text("You Lose", 100, 225);
-    text("Level: " + level1, 100, 245);
-    text("You Won!", 100 + width / 2, 225);
-    text("Level: " + level2, 100 + width / 2, 245);
+    fill(255, 280 - level1 * 25, 280 - level1 * 25);
+    rect(0, 0, width / 2, height);
+    fill(255, 280 - level2 * 25, 280 - level2 * 25);
+    rect(width / 2, 0, width / 2, height);
+    fill(0);
+    line(0, 0, width, 0);
+    line(0, 0, 0, height);
+    line(width - 1, height, width - 1, 0);
+    line(width, height - 1, 0, height - 1);
+
+    fill(0);
+    textAlign(CENTER);
+    textSize(30);
+    text("You Lose", width / 4, 225);
+    text("You Won!", 3 * width / 4, 225);
+    textSize(25);
+    text("Level: " + level1, width / 4, 275);
+    text("Level: " + level2, 3 * width / 4, 275);
   } else if (level1 == level2) {
+    fill(255, 280 - level1 * 25, 280 - level1 * 25);
+    rect(0, 0, width, height);
+    fill(0);
+    line(0, 0, width, 0);
+    line(0, 0, 0, height);
+    line(width - 1, height, width - 1, 0);
+    line(width, height - 1, 0, height - 1);
+
+    fill(0);
+    textAlign(CENTER);
+    textSize(30);
     text("Tie!", width / 2, 225);
-    text("Level: " + level1, width / 2, 245);
+    textSize(25);
+    text("Level: " + level1, width / 2, 275);
   }
 }
