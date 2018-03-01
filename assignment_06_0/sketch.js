@@ -1,5 +1,6 @@
 let krabbypatty;
 let krabbypatties = [];
+let amplitudeLevel;
 
 function preload() {
   sound = loadSound('song0.mp3');
@@ -22,9 +23,8 @@ function setup() {
 
 function draw() {
   background(0);
-  var size = amplitude.getLevel();
+  amplitudeLevel = amplitude.getLevel();
   for (p of krabbypatties) {
-    p.sizing(size);
     p.update();
     p.display();
   }
@@ -39,10 +39,6 @@ class Patty {
     this.angle = 0;
   }
 
-  sizing(size) {
-    this.scale = this.scale * size;
-  }
-
   update() {
     this.angle += this.rate;
   }
@@ -51,7 +47,7 @@ class Patty {
     push();
     translate(this.x, this.y);
     rotate(this.angle);
-    scale(this.scale);
+    scale(this.scale * amplitudeLevel);
     image(krabbypatty, 0, 0, width, height);
     pop();
   }
