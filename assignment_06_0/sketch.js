@@ -24,7 +24,7 @@ function draw() {
   }
 }
 
-class Plane {
+class Patty {
   constructor(_x, _y, _scale, _rate) {
     this.x = _x;
     this.y = _y;
