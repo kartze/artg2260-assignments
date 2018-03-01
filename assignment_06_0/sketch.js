@@ -47,7 +47,7 @@ class Patty {
     push();
     translate(this.x, this.y);
     rotate(this.angle);
-    scale(this.scale * amplitudeLevel);
+    scale(this.scale * amplitudeLevel * 100);
     image(krabbypatty, 0, 0, width, height);
     pop();
   }
