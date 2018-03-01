@@ -1,6 +1,6 @@
 let krabbypatty;
 let krabbypatties = [];
-let energyLevel;
+let amplitudeLevel;
 
 function preload() {
   sound = loadSound('song.mp3');
@@ -17,13 +17,13 @@ function setup() {
     let p = new Patty(random(width), random(height), scale, spinRate);
     krabbypatties.push(p);
   }
-  energy = new p5.FFT();
+  amplitude = new p5.Amplitude();
   sound.play();
 }
 
 function draw() {
   background(0);
-  energyLevel = energy.getEnergy("bass");
+  amplitudeLevel = amplitude.getLevel();
   for (p of krabbypatties) {
     p.update();
     p.display();
@@ -47,12 +47,8 @@ class Patty {
     push();
     translate(this.x, this.y);
     rotate(this.angle);
-    scale(this.scale * energyLevel * 10);
+    scale(this.scale * amplitudeLevel * 10);
     image(krabbypatty, 0, 0, width, height);
     pop();
   }
-}
-
-function mouseClicked() {
-  sound.stop();
 }
