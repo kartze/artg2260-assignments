@@ -21,9 +21,9 @@ function setup() {
 
 function draw() {
   background(0);
+  var level = amplitude.getLevel();
+  var size = map(level, 0, 1, 0, 200)
   for (p of krabbypatties) {
-    var level = amplitude.getLevel();
-    var size = map(level, 0, 1, 0, 200)
     p.sizing(size);
     p.update();
     p.display();
