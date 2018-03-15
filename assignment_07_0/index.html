@@ -36,9 +36,7 @@ Title: Data Visualization
     </a>
     <p>Assignment 7.0: Data Visualization</p>
     <p style="font-size:1em;"><i>Boston's Public Schools</i></p>
-    <p>
-      <div id="info-box">__</div>
-    </p>
+    <div id="info-box">__</div>
     <div id="map" style="width:100%;height:400px;"></div>
     <script>
       var map;
@@ -53,8 +51,8 @@ Title: Data Visualization
         map.data.loadGeoJson('https://kartze.github.io/artg2260-assignments/assignment_07_0/bps.geojson');
 
         map.data.addListener('mouseover', function(event) {
-          document.getElementById('info-box').textContent =
-            event.feature.getProperty('SCH_NAME');
+          document.getElementById('info-box').textContent = "<p>" +
+            event.feature.getProperty('SCH_NAME') + "</p>";
         });
       }
 
