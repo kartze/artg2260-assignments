@@ -51,7 +51,7 @@ Title: Data Visualization
         map.data.loadGeoJson('https://kartze.github.io/artg2260-assignments/assignment_07_0/bps.geojson');
 
         map.data.addListener('mouseover', function(event) {
-          document.getElementById('info-box').innerHTML = "<p>" + event.feature.getProperty('SCH_NAME') + "</p>";
+          document.getElementById('info-box').innerHTML = "<p style='font-size:1.2em;'>" + event.feature.getProperty('SCH_NAME') + "</p>";
         });
       }
 
