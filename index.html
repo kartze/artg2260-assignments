@@ -71,9 +71,16 @@ Title: Website
 			</div>
 			<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
 				<div class="assignment">
-					<a href="week_07.html">07<br>Data Visualization and Information</a>
+					<a href="week_07.html" id="dataviz">07<br>Data Viz</a>
 				</div>
 			</div>
+			<script>
+				var w = window.innerWidth;
+				var s = screen.width;
+				if (w < (0.781 * s)) {
+					document.getElementById("dataviz").innerHTML = "07<br>Data Visualization and Information";
+				}
+			</script>
 			<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
 				<div class="assignment">
 					<a href="week_08.html">08</a>
