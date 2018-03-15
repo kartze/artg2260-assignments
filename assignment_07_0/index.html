@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+Class: ARTG2260 Sec2
+Name: Karisa Tzeng
+Email: stargazekin@gmail.com
+Assignment: 7.0
+Title: Data Visualization
+-->
+
+<head>
+  <meta charset="utf-8">
+  <title>ARTG2260 Assignments</title>
+  <link rel="stylesheet" href="../styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa:300">
+  <!-- link p5 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.js"></script>
+  <script src="sketch.js"></script>
+  <script language="javascript" type="text/javascript" src="p5.sound.js"></script>
+
+  <style>
+    #map {
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <div class="container navbar">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><a href="../index.html"><h3>KARISA TZENG</h3></a></div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><a href="../index.html"><h3>Assignments</h3></a></div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><a href="../about.html"><h3>About</h3></a></div>
+    </div>
+  </div>
+
+  <!-- MAIN PAGE CONTENT -->
+  <div class="container">
+    <a href="../week_07.html">
+      <p>← Back</p>
+    </a>
+    <p>Assignment 7.0: Data Visualization</p>
+    <p style="font-size:1em;"><i>Boston's Public Schools</i></p>
+    <div id="map"></div>
+    <script>
+      var map;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: new google.maps.LatLng(42.3601, 71.0589),
+          mapTypeId: 'roadmap'
+        });
+
+        var script = document.createElement('script');
+        script.src = 'Public_Schools.geojson';
+        document.getElementsByTagName('head')[0].appendChild(script);
+      }
+
+      window.eqfeed_callback = function(results) {
+        for (var i = 0; i < results.features.length; i++) {
+          var coords = results.features[i].geometry.coordinates;
+          var latLng = new google.maps.LatLng(coords[1], coords[0]);
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+          });
+        }
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW2fmB3QVPG5qduHkIr2TJMHEGXh-XPZ8&callback=initMap">
+    </script>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <a href="https://nathanmelenbrink.github.io/artg2260/index.html" target="_blank"><h5>ARTG2260: Programming Basics Section 2</h5></a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
