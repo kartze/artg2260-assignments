@@ -52,14 +52,12 @@ Title: Data Visualization
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: new google.maps.LatLng(42.3601, 71.0589),
+          zoom: 14,
+          center: new google.maps.LatLng(42.3509, -71.0700),
           mapTypeId: 'roadmap'
         });
 
-        var script = document.createElement('script');
-        script.src = 'Public_Schools.geojson';
-        document.getElementsByTagName('head')[0].appendChild(script);
+        map.data.loadGeoJson('https://kartze.github.io/artg2260-assignments/assignment_07_0/bps.geojson');
       }
 
       window.eqfeed_callback = function(results) {
